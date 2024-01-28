@@ -1,21 +1,35 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div style="text-align: center" class="">
+    <h1 class="hero-header">Test your reaction speed.</h1>
+    <br />
+    <button @click="start" :disabled="isPlaying">Play</button>
+    <br />
+    <div v-if="isPlaying">
+      <Block :delay="delay" />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
+
+<script>
+import Block from "./components/Block.vue";
+export default {
+  components: {
+    Block,
+  },
+  data() {
+    return {
+      isPlaying: false,
+      delay: null,
+    };
+  },
+  methods: {
+    start() {
+      this.isPlaying = true;
+      this.delay = 2000 + Math.random() * 5000;
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
@@ -25,6 +39,9 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+.hero-header {
+  text-align: center;
 }
 
 @media (min-width: 1024px) {
